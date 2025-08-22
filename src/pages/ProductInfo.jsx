@@ -2,15 +2,15 @@ import React, { useEffect, useState,useContext } from 'react';
 import { Link, Route, Routes, useParams } from 'react-router-dom';
 import products from '../data.js'
 import { CreateTheme } from '../Context/ThemeProvider.jsx';
+import { CartContext } from '../Context/cartContext.jsx';
 
 
 const ProductInfo = () => {
   const [product, setProduct] = useState({});
   const {ID} = useParams()
 
-  const {theme} = useContext(CreateTheme)
-
-
+  const {theme} = useContext(CreateTheme);
+  const {dispatch} =useContext(CartContext);
 
   async function fetchData() {
     const index = products.findIndex((p,i)=> p.id == ID)
@@ -25,6 +25,10 @@ const ProductInfo = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  function handleAddToCart(){
+    dispatch({ type :"ADD_TO_CART", payload: product });
+  }
 
 
 console.log(ID, 'ID in prod info')
@@ -71,7 +75,7 @@ console.log(product,'product')
               </span>
             </div>
 
-            <button className="btn btn-success btn-lg mt-3">
+            <button onClick={handleAddToCart} className="btn btn-success btn-lg mt-3">
               Add to Cart
             </button>
            <div className="mt-3">

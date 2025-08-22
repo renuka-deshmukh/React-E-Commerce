@@ -1,34 +1,40 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthProvider";
 
 const LoginPage = () => {
+
   const [email, setEmail] = useState();
   const [password, setPassword] = useState('');
-  // const [user, setUser] = useState({});
+
+  const inputRef = useRef();
   const navigate = useNavigate();
 
   const { loggedUser, login } = useContext(AuthContext);
 
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
   function handleLogin(e) {
     e.preventDefault();
-    
+
     try {
       const msg = login(email, password);
-      if(msg) {
-      alert(msg);
-      navigate('/dashboard');
-    }else {
-      alert("inavalid credientials");
-      navigate('/')
-    }
+      if (msg) {
+        alert(msg);
+        navigate('/dashboard');
+      } else {
+        alert("inavalid credientials");
+        navigate('/')
+      }
     } catch (error) {
-        console.log(error)
+      console.log(error)
     }
   }
 
   console.log(loggedUser, "is login page")
- 
+
   return (
     <div className="container w-50 mx-auto border shadow mt-5 rounded-2 p-3">
       <form onSubmit={handleLogin}>
@@ -38,12 +44,13 @@ const LoginPage = () => {
             Email address
           </label>
           <input
+            ref={inputRef}
             type="email"
             className="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
             // value={email}
-            onChange={(e)=>setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className="mb-3">
@@ -55,7 +62,7 @@ const LoginPage = () => {
             className="form-control"
             id="exampleInputPassword1"
             // value={password}
-            onChange={(e)=>setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <div className="mb-3 form-check">
