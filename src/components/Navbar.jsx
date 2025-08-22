@@ -103,7 +103,7 @@ const Navbar = () => {
               </>
             ) : (
               <Link
-                to="/login"
+                to="/"
                 className="btn btn-sm btn-outline-primary"
                 style={{ borderRadius: "20px" }}
               >

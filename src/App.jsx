@@ -11,6 +11,8 @@ import Navbar from './components/Navbar'
 import { AuthProvider } from './Context/AuthProvider'
 import { CartProvider } from './Context/cartContext'
 import Cart from './components/Cart'
+import Footer from './components/Footer'
+import About from './components/About'
 
 function App() {
   const [isRegistered, setIsRegister] = useState(false)
@@ -26,8 +28,10 @@ function App() {
             <Route path='/register' element={<RegisterPage setIsRegister={setIsRegister} />}></Route>
             <Route path='/dashboard' element={<Dashboard products={products} />}></Route>
             <Route path='/dashboard/:ID/*' exact element={<ProductInfo />}></Route> 
-            <Route path='/cart' element={<Cart />}></Route>               
+            <Route path='/cart' element={<Cart />}></Route>  
+            <Route path="/about" element={<About />} ></Route>            
           </Routes>
+          <Footer />  
           </CartProvider>
           </AuthProvider>
         </BrowserRouter>

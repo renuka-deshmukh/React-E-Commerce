@@ -79,7 +79,7 @@ const Cart = () => {
                         className="btn btn-sm btn-outline-secondary"
                         onClick={() =>
                           dispatch({
-                            type: "REMOVE_FROM_CART",
+                            type: "DECREASE_QUANTITY",
                             payload: item.id,
                           })
                         }

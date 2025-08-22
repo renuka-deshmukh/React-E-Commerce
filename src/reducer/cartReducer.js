@@ -24,6 +24,19 @@ export function reducer(state, action) {
       };
     }
 
+     case "DECREASE_QUANTITY": {
+      return {
+        ...state,
+        cart: state.cart
+          .map(item =>
+            item.id === action.payload
+              ? { ...item, quantity: item.quantity - 1 }
+              : item
+          )
+          .filter(item => item.quantity > 0) // remove if 0
+      };
+    }
+
     case "REMOVE_FROM_CART":
       return {
         ...state,
