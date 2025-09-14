@@ -1,13 +1,15 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Link, Route, Routes, useParams } from "react-router-dom";
-import products from "../data.js";
+import { Link, Route, Routes, useNavigate, useParams } from "react-router-dom";
+import products from "../Data.js";
 import { CreateTheme } from "../Context/ThemeProvider.jsx";
 import { CartContext } from "../Context/cartContext.jsx";
 import { FaShoppingCart, FaHeart, FaStar, FaRegCommentDots } from "react-icons/fa";
+import { AuthContext } from "../Context/AuthProvider.jsx";
 
 const ProductInfo = () => {
   const [product, setProduct] = useState(null);
   const { ID } = useParams();
+   const navigate = useNavigate()
 
   const { theme } = useContext(CreateTheme);
   const { dispatch } = useContext(CartContext);
@@ -25,10 +27,16 @@ const ProductInfo = () => {
     fetchData();
   }, []);
 
-  function handleAddToCart() {
-    dispatch({ type: "ADD_TO_CART", payload: product });
-  }
+  const { loggedUser } = useContext(AuthContext);
 
+function handleAddToCart() {
+  if (loggedUser) {
+    dispatch({ type: "ADD_TO_CART", payload: product });
+  } else {
+    alert("Please Login..!");
+    navigate("/");
+  }
+}
   return (
     <div
       className={`container my-5 p-4 rounded-4 shadow-lg ${

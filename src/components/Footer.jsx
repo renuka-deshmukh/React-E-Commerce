@@ -12,7 +12,7 @@ const Footer = () => {
           <div className="col-md-3 mb-4">
             <h4 className="fw-bold text-success">BlinkCart 🛒</h4>
             <p className="small">
-              Your one-stop shop for groceries, fashion, and essentials — 
+              Your one-stop shop for groceries and essentials — 
               delivered fast at your doorstep!
             </p>
           </div>
@@ -21,8 +21,8 @@ const Footer = () => {
           <div className="col-md-3 mb-4">
             <h5 className="fw-bold">Quick Links</h5>
             <ul className="list-unstyled">
-              <li><Link to="/" className="text-light text-decoration-none">Home</Link></li>
-              <li><Link to="/products" className="text-light text-decoration-none">Products</Link></li>
+              <li><Link to="/dashboard" className="text-light text-decoration-none">Home</Link></li>
+              <li><Link to="/dashboard" className="text-light text-decoration-none">Products</Link></li>
               <li><Link to="/cart" className="text-light text-decoration-none">Cart</Link></li>
               <li><Link to="/contact" className="text-light text-decoration-none">Contact Us</Link></li>
             </ul>

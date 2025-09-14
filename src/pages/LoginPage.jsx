@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthProvider";
 import { Mail, Lock, LogIn } from "lucide-react"; // ✅ Icons
 
-const LoginPage = () => {
+const LoginPage = ({isLoggedIn}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

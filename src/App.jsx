@@ -3,7 +3,7 @@ import './App.css'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import Dashboard from './pages/Dashboard'
-import products from './data'
+import products from './Data'
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom'
 import ProductInfo from './pages/ProductInfo'
 import { ThemeProvider } from './Context/ThemeProvider'
@@ -16,6 +16,7 @@ import About from './components/About'
 
 function App() {
   const [isRegistered, setIsRegister] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   return (
     <>
       <ThemeProvider >
@@ -24,7 +25,7 @@ function App() {
           <CartProvider>
           <Navbar />
           <Routes>
-            <Route path='/' element={<LoginPage />}></Route>
+            <Route path='/' element={<LoginPage setIsLoggedIn = {setIsLoggedIn} />} ></Route>
             <Route path='/register' element={<RegisterPage setIsRegister={setIsRegister} />}></Route>
             <Route path='/dashboard' element={<Dashboard products={products} />}></Route>
             <Route path='/dashboard/:ID/*' exact element={<ProductInfo />}></Route> 

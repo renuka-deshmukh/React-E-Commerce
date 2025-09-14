@@ -1,20 +1,20 @@
 import React, { createContext, useState } from 'react'
 
 const CreateTheme = createContext(null)
-const ThemeProvider = ({children}) => {
+const ThemeProvider = ({ children }) => {
 
-    const [theme, setTheme] = useState("light")
+  const [theme, setTheme] = useState("light")
 
-    function toggleTheme(){
+  function toggleTheme() {
 
-        setTheme((perTheme => perTheme == 'light' ? 'dark' : 'light'))
+    setTheme((perTheme => perTheme == 'light' ? 'dark' : 'light'))
 
-    }
+  }
   return (
-    < CreateTheme.Provider value={{theme, toggleTheme}} >
-    {children}
+    < CreateTheme.Provider value={{ theme, toggleTheme }} >
+      {children}
     </CreateTheme.Provider>
   )
 }
 
-export {ThemeProvider, CreateTheme}
+export { ThemeProvider, CreateTheme }

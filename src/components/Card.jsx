@@ -1,15 +1,26 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../Context/cartContext.jsx";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../Context/AuthProvider.jsx";
+
 
 const Card = ({ product }) => {
   const { dispatch } = useContext(CartContext);
+  const navigate = useNavigate()
+
+  const { loggedUser } = useContext(AuthContext);
 
   function handleAddToCart() {
-    dispatch({ type: "ADD_TO_CART", payload: product });
+    if (loggedUser) {
+      dispatch({ type: "ADD_TO_CART", payload: product });
+    } else {
+      alert("Please Login..!");
+      navigate("/");
+    }
   }
-
   return (
+
     <div
       className="rounded-4 shadow-sm h-100 d-flex flex-column"
       style={{

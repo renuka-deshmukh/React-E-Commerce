@@ -3,14 +3,15 @@ import { Link } from "react-router-dom";
 import { CreateTheme } from "../Context/ThemeProvider";
 import { AuthContext } from "../Context/AuthProvider";
 import { CartContext } from "../Context/cartContext";
+// import { ThemeContext } from "../Context/ThemeProvider";
 
 const Navbar = () => {
   const { theme, toggleTheme } = useContext(CreateTheme);
   const { loggedUser, logout } = useContext(AuthContext);
   const { state } = useContext(CartContext);
+  // const { theme, toggleTheme } = useContext(ThemeContext);
 
-  // ✅ Cart count
-  const cartCount = state.cart.reduce((total, item) => total + item.quantity, 0);
+  const cartCount = state?.cart?.reduce((total, item) => total + item.quantity, 0) || 0;
 
   return (
     <nav

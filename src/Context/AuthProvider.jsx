@@ -1,41 +1,67 @@
-import React, { createContext, useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+// AuthProvider.js
+import React, { createContext, useState, useEffect } from "react";
 
-const AuthContext = createContext()
+export const AuthContext = createContext();
 
-const AuthProvider = ({children}) => {
+const AuthProvider = ({ children }) => {
+  const [loggedUser, setLoggedUser] = useState(null);
 
-    const [user, setUser] = useState()
-    const [loggedUser, setLoggedUser] = useState()
-    const nevigate = useNavigate()
+  // Load logged user from localStorage on refresh
+  useEffect(() => {
+    const storedUser = localStorage.getItem("loggedUser");
+    if (storedUser) {
+      setLoggedUser(JSON.parse(storedUser));
+    }
+  }, []);
 
-    function login(email, password){
-        if(user.email == email && user.password == password){
-            setLoggedUser({...loggedUser, ...{name:user.name, email:user.email},
+  // Register user
+  const register = (name, email, password) => {
+    let users = JSON.parse(localStorage.getItem("users")) || [];
 
-         });
-         return "login success"
-        }else {
-            setLoggedUser(null);
-        }
+    if (users.some((u) => u.email === email)) {
+      return "User already exists ❌";
     }
 
-    function logout(){
-        setLoggedUser(null)
-        nevigate('/')
+    const newUser = { name, email, password }; // ✅ save name also
+    users.push(newUser);
+
+    localStorage.setItem("users", JSON.stringify(users));
+    return "Registration successful ✅";
+  };
+
+
+  // Login user
+  const login = (email, password) => {
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    if (users.length === 0) {
+      return "No registered users found. Please register first ❌";
     }
 
-    useEffect(() => {
-        const u = JSON.parse(localStorage.getItem("user"));
-        setUser({...user, ...u});
-      }, []);
-      console.log(loggedUser, "in authProvider")
+    const foundUser = users.find(
+      (u) => u.email === email && u.password === password
+    );
+
+    if (foundUser) {
+      setLoggedUser(foundUser);
+      localStorage.setItem("loggedUser", JSON.stringify(foundUser));
+      return "Login successful ✅";   // always return message
+    }
+
+    return null; // invalid credentials
+  };
+
+  // Logout user
+  const logout = () => {
+    setLoggedUser(null);
+    localStorage.removeItem("loggedUser");
+  };
 
   return (
-    <AuthContext.Provider value={{login, loggedUser, logout}}>
+    <AuthContext.Provider value={{ loggedUser, register, login, logout }}>
       {children}
     </AuthContext.Provider>
-  )
-}
+  );
+};
 
-export { AuthProvider, AuthContext}
+export { AuthProvider };

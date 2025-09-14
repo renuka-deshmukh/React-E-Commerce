@@ -1,30 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { User, Mail, Lock, UserPlus } from "lucide-react"; // ✅ icons
+import { User, Mail, Lock, UserPlus } from "lucide-react";
+import { AuthContext } from "../Context/AuthProvider"; // ✅ use AuthProvider methods
 
 const RegisterPage = ({ setIsRegister }) => {
-  const [userName, setUserName] = useState("");
+  const [name, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { register } = useContext(AuthContext);
 
+  // ✅ Call register from AuthProvider
   function handleRegister(event) {
     event.preventDefault();
-    const payload = {
-      name: userName,
-      email: email,
-      password: password,
-    };
-    console.log(payload, "payload");
-    localStorage.setItem("user", JSON.stringify(payload));
-    setIsRegister(true);
-    navigate("/");
+    const message = register(name, email, password); // ✅ pass name
+
+    if (message.includes("successful")) {
+      setIsRegister(true);
+      navigate("/");
+    } else {
+      alert(message);
+    }
   }
 
   return (
     <div className="container d-flex justify-content-center align-items-center vh-100">
       <div className="card shadow-lg p-4 rounded-4" style={{ width: "400px" }}>
-        {/* Heading */}
         <h2 className="text-center mb-4 fw-bold text-success">
           <UserPlus size={28} className="me-2" />
           Create Account
@@ -82,24 +83,27 @@ const RegisterPage = ({ setIsRegister }) => {
             />
           </div>
 
-          {/* Terms checkbox */}
+          {/* Terms */}
           <div className="form-check mb-3">
             <input type="checkbox" className="form-check-input" id="terms" required />
             <label className="form-check-label small" htmlFor="terms">
-              I agree to the <a href="#" className="text-success text-decoration-none">Terms & Conditions</a>
+              I agree to the{" "}
+              <a href="#" className="text-success text-decoration-none">
+                Terms & Conditions
+              </a>
             </label>
           </div>
 
-          {/* Submit button */}
-          <button type="submit" className="btn btn-success w-100 rounded-3 fw-semibold">
+          {/* Submit */}
+          <button
+            type="submit"
+            className="btn btn-success w-100 rounded-3 fw-semibold"
+          >
             Register
           </button>
         </form>
 
-        {/* Divider */}
         <div className="text-center my-3 text-muted">or</div>
-
-        {/* Already Registered link */}
         <div className="text-center">
           <span className="small">Already have an account? </span>
           <Link to="/" className="fw-semibold text-success text-decoration-none">
