@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CreateTheme } from "../Context/ThemeProvider";
 import { AuthContext } from "../Context/AuthProvider";
-import { CartContext } from "../Context/cartContext";
+import { CartContext } from "../Context/CartContext";
 // import { ThemeContext } from "../Context/ThemeProvider";
 
 const Navbar = () => {

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { Link, Route, Routes, useNavigate, useParams } from "react-router-dom";
 import products from "../Data.js";
 import { CreateTheme } from "../Context/ThemeProvider.jsx";
-import { CartContext } from "../Context/cartContext.jsx";
+import { CartContext } from "../Context/CartContext.jsx";
 import { FaShoppingCart, FaHeart, FaStar, FaRegCommentDots } from "react-icons/fa";
 import { AuthContext } from "../Context/AuthProvider.jsx";
 
