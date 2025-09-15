@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useReducer, useContext } from "react";
 import { initialState, reducer } from "../reducer/cartReducer";
 import { AuthContext } from "./AuthProvider"; // ✅ import AuthContext
 
-export const CartContext = createContext();
+ const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
   const { loggedUser } = useContext(AuthContext); // ✅ current logged-in user
@@ -60,4 +60,4 @@ const CartProvider = ({ children }) => {
   );
 };
 
-export { CartProvider };
+export { CartProvider, CartContext };
