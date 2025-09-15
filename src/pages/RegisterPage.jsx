@@ -45,7 +45,7 @@ const RegisterPage = ({ setIsRegister }) => {
               type="text"
               className="form-control rounded-3"
               placeholder="Enter your username"
-              value={userName}
+              value={name}
               onChange={(e) => setUserName(e.target.value)}
               required
             />
